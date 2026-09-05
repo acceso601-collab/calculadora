@@ -32,7 +32,7 @@ public class CalculatorEngine {
                         values.push(applyOp(ops.pop(), values.pop(), values.pop()));
                     }
                     ops.pop();
-                } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
+                } else if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^' || c == '%') {
                     while (!ops.isEmpty() && precedence(ops.peek()) >= precedence(String.valueOf(c))) {
                         values.push(applyOp(ops.pop(), values.pop(), values.pop()));
                     }
@@ -46,7 +46,6 @@ public class CalculatorEngine {
                 } else if (c == 'e') {
                     values.push(Math.E);
                 } else {
-                    // Funciones (sin, cos, tan, ln, log)
                     StringBuilder func = new StringBuilder();
                     while (i < expression.length() && Character.isLetter(expression.charAt(i))) {
                         func.append(expression.charAt(i++));
@@ -75,7 +74,7 @@ public class CalculatorEngine {
 
     private int precedence(String op) {
         if (op.equals("+") || op.equals("-")) return 1;
-        if (op.equals("*") || op.equals("/")) return 2;
+        if (op.equals("*") || op.equals("/") || op.equals("%")) return 2;
         if (op.equals("^")) return 3;
         return 0;
     }
@@ -88,6 +87,7 @@ public class CalculatorEngine {
             case "/":
                 if (b == 0) throw new ArithmeticException("Division by zero");
                 return a / b;
+            case "%": return a % b; // Soporte para porcentaje/módulo
             case "^": return Math.pow(a, b);
         }
         return 0;
