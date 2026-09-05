@@ -1,37 +1,30 @@
 name: Build and Test APK
-
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v5
-
-      - name: Configurar JDK 17
+      - uses: actions/checkout@v5
+      - name: Set up JDK 17
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Configurar Android SDK
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-
-      - name: Dar permisos al wrapper
-        run: chmod +x gradlew
-
-      - name: Ejecutar tests unitarios
-        run: ./gradlew test
-
-      - name: Compilar APK Debug
-        run: ./gradlew assembleDebug
-
-      - name: Subir APK como artefacto
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Run Unit Tests
+        run: gradle test
+      - name: Build Debug APK
+        run: gradle assembleDebug
+      - name: Find APK files
+        run: find . -name "*.apk"
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Calculadora-APK
-          path: app/build/outputs/apk/debug/
+          path: app/build/outputs/apk/**/*.apk
