@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
     private TextView display;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void appendNumber(String number) {
         if (isNewInput) { currentInput = ""; isNewInput = false; }
-        // Evitar múltiples puntos decimales
         if (number.equals(".") && currentInput.contains(".")) return;
         currentInput += number;
         display.setText(currentInput);
@@ -58,16 +56,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculateResult() {
-        if (currentInput.isEmpty()) return;
+        // Fix #1: Evitar pulsar = sin operador (no debe dar 0)
+        if (operator.isEmpty() || currentInput.isEmpty()) return;
+
         double secondOperand = Double.parseDouble(currentInput);
         double result = 0;
+
         switch (operator) {
             case "+": result = firstOperand + secondOperand; break;
             case "-": result = firstOperand - secondOperand; break;
             case "*": result = firstOperand * secondOperand; break;
-            case "/": if (secondOperand != 0) result = firstOperand / secondOperand; break;
+            case "/":
+                // Fix #2: División entre cero muestra Error
+                if (secondOperand == 0) {
+                    display.setText("Error");
+                    currentInput = "";
+                    operator = "";
+                    firstOperand = 0;
+                    isNewInput = true;
+                    return;
+                }
+                result = firstOperand / secondOperand;
+                break;
         }
-        // Formatear para que no muestre decimales innecesarios (ej: 10.0 en vez de 10)
+
+        // Formatear para no mostrar decimales innecesarios
         if (result == (long) result) {
             display.setText(String.format("%d", (long) result));
         } else {
@@ -75,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
         currentInput = String.valueOf(result);
         isNewInput = true;
+        operator = "";
     }
 
     private void clear() {
