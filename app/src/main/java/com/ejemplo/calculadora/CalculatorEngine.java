@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 
 public class CalculatorEngine {
     private final DecimalFormat df = new DecimalFormat("0.###############");
-    private boolean degrees = true;
+    public boolean degrees = true;
 
     public void setDegrees(boolean degrees) { this.degrees = degrees; }
 
