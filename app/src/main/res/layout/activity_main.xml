@@ -6,7 +6,7 @@
     android:background="@color/background"
     android:padding="8dp">
 
-    <!-- Fila superior: Historial y menú -->
+    <!-- Fila superior: Historial -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="0dp"
@@ -70,7 +70,7 @@
 
     <!-- Fila Científica 2 -->
     <LinearLayout android:id="@+id/filaSci2" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/fila1" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.08">
+        app:layout_constraintBottom_toTopOf="@+id/filaSci3" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.08">
         <Button android:id="@+id/btnPct" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="%" android:textSize="14sp"/>
         <Button android:id="@+id/btnLn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="ln" android:textSize="14sp"/>
         <Button android:id="@+id/btnLog" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="log" android:textSize="14sp"/>
@@ -88,13 +88,13 @@
         <Button android:id="@+id/btnSqrt" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="√" android:textSize="14sp"/>
     </LinearLayout>
 
-    <!-- Filas Numéricas (usando el nuevo layout adaptable) -->
+    <!-- Filas Numéricas (con símbolos escapados para que no desaparezcan) -->
     <LinearLayout android:id="@+id/fila1" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/fila2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.13">
         <Button android:id="@+id/btn7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="7" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
         <Button android:id="@+id/btn8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="8" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
         <Button android:id="@+id/btn9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="9" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <Button android:id="@+id/btnDiv" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="/" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+        <Button android:id="@+id/btnDiv" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="&#47;" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
     </LinearLayout>
 
     <LinearLayout android:id="@+id/fila2" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
@@ -102,7 +102,7 @@
         <Button android:id="@+id/btn4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="4" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
         <Button android:id="@+id/btn5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="5" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
         <Button android:id="@+id/btn6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="6" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <Button android:id="@+id/btnMul" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="*" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+        <Button android:id="@+id/btnMul" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="&#42;" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
     </LinearLayout>
 
     <LinearLayout android:id="@+id/fila3" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
