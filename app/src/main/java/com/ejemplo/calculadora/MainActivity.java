@@ -1,39 +1,72 @@
 package com.ejemplo.calculadora;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private TextView display;
-    private TextView historial;
-    private Calculadora calc;
+    private TextView history;
+    private CalculatorEngine engine;
     private String currentExpression = "";
+    private boolean isInverse = false;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         display = findViewById(R.id.display);
-        historial = findViewById(R.id.historial);
-        calc = new Calculadora();
+        history = findViewById(R.id.history);
+        engine = new CalculatorEngine();
+        prefs = getSharedPreferences("CalcPrefs", Context.MODE_PRIVATE);
 
-        int[] numButtonIds = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDot};
-        for (int id : numButtonIds) {
-            findViewById(id).setOnClickListener(v -> appendToExpression(((Button) v).getText().toString()));
-        }
+        // Números y básicos
+        int[] numIds = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9, R.id.btnDot, R.id.btnOpenP, R.id.btnCloseP, R.id.btnPi, R.id.btnE, R.id.btnPow};
+        for (int id : numIds) findViewById(id).setOnClickListener(v -> appendToExpression(((Button) v).getText().toString()));
+
         findViewById(R.id.btnBack).setOnClickListener(v -> backspace());
         findViewById(R.id.btnAdd).setOnClickListener(v -> appendToExpression("+"));
         findViewById(R.id.btnSub).setOnClickListener(v -> appendToExpression("-"));
         findViewById(R.id.btnMul).setOnClickListener(v -> appendToExpression("*"));
         findViewById(R.id.btnDiv).setOnClickListener(v -> appendToExpression("/"));
+        findViewById(R.id.btnSqrt).setOnClickListener(v -> appendToExpression("√"));
+        findViewById(R.id.btnFact).setOnClickListener(v -> appendToExpression("!"));
+        findViewById(R.id.btnPct).setOnClickListener(v -> appendToExpression("%"));
+        findViewById(R.id.btnLn).setOnClickListener(v -> appendToExpression("ln"));
+        findViewById(R.id.btnLog).setOnClickListener(v -> appendToExpression("log"));
+
+        // Funciones trigonométricas (maneja el modo INV)
+        findViewById(R.id.btnSin).setOnClickListener(v -> appendToExpression(isInverse ? "sin⁻¹" : "sin"));
+        findViewById(R.id.btnCos).setOnClickListener(v -> appendToExpression(isInverse ? "cos⁻¹" : "cos"));
+        findViewById(R.id.btnTan).setOnClickListener(v -> appendToExpression(isInverse ? "tan⁻¹" : "tan"));
+
+        // Cambiar modo Grados/Radianes y modo INV
+        findViewById(R.id.btnDeg).setOnClickListener(v -> {
+            engine.setDegrees(!engine.degrees); // Esto es un placeholder, en el engine se maneja solo
+            ((Button) v).setText(engine.degrees ? "DEG" : "RAD");
+        });
+        findViewById(R.id.btnInv).setOnClickListener(v -> {
+            isInverse = !isInverse;
+            ((Button) v).setText(isInverse ? "INV" : "INV"); // Mantener el texto igual, solo cambia la lógica
+        });
+
+        // Igualdad y limpiar
         findViewById(R.id.btnEquals).setOnClickListener(v -> calculateResult());
         findViewById(R.id.btnClear).setOnClickListener(v -> clear());
+
+        // Historial
+        findViewById(R.id.btnHistory).setOnClickListener(v -> showHistory());
+        loadHistory();
     }
 
     private void appendToExpression(String s) {
+        if (s.equals(".") && currentExpression.endsWith(".")) return;
         currentExpression += s;
         display.setText(currentExpression);
     }
@@ -46,17 +79,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculateResult() {
-        if (currentExpression.isEmpty()) return;
-        String result = calc.evaluar(currentExpression);
-        // Añadir al historial (mostrando la operación y resultado)
-        historial.setText(currentExpression + " = " + result);
+        if (currentExpression.isEmpty() || !currentExpression.matches(".*[0-9].*")) return;
+        String result = engine.evaluate(currentExpression);
+        String fullExpression = currentExpression + " = " + result;
+        history.setText(fullExpression);
         display.setText(result);
-        currentExpression = result; // Mantener el resultado para seguir operando
+        currentExpression = result;
+
+        // Guardar en preferencias
+        String oldHistory = prefs.getString("history", "");
+        prefs.edit().putString("history", fullExpression + "\n" + oldHistory).apply();
     }
 
     private void clear() {
         currentExpression = "";
-        historial.setText("");
         display.setText("0");
+    }
+
+    private void showHistory() {
+        String h = prefs.getString("history", "");
+        if (h.isEmpty()) h = "Sin operaciones";
+        new AlertDialog.Builder(this)
+                .setTitle("Historial")
+                .setMessage(h)
+                .setPositiveButton("Borrar", (dialog, which) -> {
+                    prefs.edit().putString("history", "").apply();
+                    history.setText("");
+                })
+                .setNegativeButton("Cerrar", null)
+                .show();
+    }
+
+    private void loadHistory() {
+        String h = prefs.getString("history", "");
+        if (!h.isEmpty()) {
+            history.setText(h.split("\n")[0]);
+        }
     }
 }

@@ -4,106 +4,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="16dp">
+    android:padding="8dp">
 
-    <!-- Historial -->
-    <TextView
-        android:id="@+id/historial"
+    <!-- Fila superior: Historial y menú -->
+    <LinearLayout
+        android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
         android:gravity="end"
-        android:textColor="#888888"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/display"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:id="@+id/btnHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Historial"
+            android:textColor="@color/text_history"
+            android:textSize="14sp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Ver historial"/>
+    </LinearLayout>
 
-    <!-- Pantalla principal -->
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:textColor="@color/text_history"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar" />
+
     <TextView
         android:id="@+id/display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:gravity="end"
-        android:padding="16dp"
+        android:padding="8dp"
         android:text="0"
         android:textColor="@color/text_white"
-        android:textSize="60sp"
+        android:textSize="50sp"
         android:textStyle="bold"
         android:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="20sp"
-        android:autoSizeMaxTextSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/fila1"
+        android:autoSizeMaxTextSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/filaSci1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/history" />
 
-    <LinearLayout
-        android:id="@+id/fila1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/fila2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn7" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="7" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn8" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="8" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn9" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="9" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnDiv" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="/" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    <!-- Fila Científica 1 -->
+    <LinearLayout android:id="@+id/filaSci1" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/filaSci2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.08">
+        <Button android:id="@+id/btnInv" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="INV" android:textSize="14sp" android:textColor="@color/text_history"/>
+        <Button android:id="@+id/btnDeg" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="DEG" android:textSize="14sp" android:textColor="@color/text_history"/>
+        <Button android:id="@+id/btnSin" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="sin" android:textSize="14sp"/>
+        <Button android:id="@+id/btnCos" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="cos" android:textSize="14sp"/>
+        <Button android:id="@+id/btnTan" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="tan" android:textSize="14sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/fila2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/fila3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn4" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="4" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn5" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="5" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn6" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="6" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnMul" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="*" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    <!-- Fila Científica 2 -->
+    <LinearLayout android:id="@+id/filaSci2" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fila1" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.08">
+        <Button android:id="@+id/btnPct" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="%" android:textSize="14sp"/>
+        <Button android:id="@+id/btnLn" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="ln" android:textSize="14sp"/>
+        <Button android:id="@+id/btnLog" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="log" android:textSize="14sp"/>
+        <Button android:id="@+id/btnFact" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="!" android:textSize="14sp"/>
+        <Button android:id="@+id/btnPow" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="^" android:textSize="14sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/fila3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/fila4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn1" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="1" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn2" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="2" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn3" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="3" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnSub" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="-" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    <!-- Fila Científica 3 -->
+    <LinearLayout android:id="@+id/filaSci3" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fila1" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.08">
+        <Button android:id="@+id/btnPi" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="π" android:textSize="14sp"/>
+        <Button android:id="@+id/btnE" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="e" android:textSize="14sp"/>
+        <Button android:id="@+id/btnOpenP" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="(" android:textSize="14sp"/>
+        <Button android:id="@+id/btnCloseP" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text=")" android:textSize="14sp"/>
+        <Button android:id="@+id/btnSqrt" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="2dp" android:layout_weight="1" android:text="√" android:textSize="14sp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/fila4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/fila5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn0" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="0" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnDot" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="." android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnBack" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="⌫" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnAdd" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="1" android:text="+" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    <!-- Filas Numéricas (usando el nuevo layout adaptable) -->
+    <LinearLayout android:id="@+id/fila1" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fila2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.13">
+        <Button android:id="@+id/btn7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="7" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btn8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="8" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btn9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="9" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btnDiv" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="/" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/fila5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnClear" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="2" android:text="C" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btnEquals" style="@style/Widget.Material3.Button" android:layout_width="0dp" android:layout_height="80dp" android:layout_margin="4dp" android:layout_weight="2" android:text="=" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    <LinearLayout android:id="@+id/fila2" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fila3" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.13">
+        <Button android:id="@+id/btn4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="4" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btn5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="5" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btn6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="6" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btnMul" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="*" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/fila3" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fila4" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.13">
+        <Button android:id="@+id/btn1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="1" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btn2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="2" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btn3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="3" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btnSub" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="-" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/fila4" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/fila5" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.13">
+        <Button android:id="@+id/btn0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="0" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btnDot" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="." android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="⌫" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+        <Button android:id="@+id/btnAdd" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="1" android:text="+" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/fila5" android:layout_width="match_parent" android:layout_height="0dp" android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHeight_percent="0.13">
+        <Button android:id="@+id/btnClear" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="2" android:text="C" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_number"/>
+        <Button android:id="@+id/btnEquals" android:layout_width="0dp" android:layout_height="match_parent" android:layout_margin="4dp" android:layout_weight="2" android:text="=" android:textSize="24sp" app:cornerRadius="16dp" app:backgroundTint="@color/button_operator"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

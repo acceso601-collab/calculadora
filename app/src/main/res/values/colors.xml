@@ -3,5 +3,5 @@
     <color name="button_number">#333333</color>
     <color name="button_operator">#FF6200EE</color>
     <color name="text_white">#FFFFFFFF</color>
-    <color name="purple_500">#FF6200EE</color>
+    <color name="text_history">#888888</color>
 </resources>
